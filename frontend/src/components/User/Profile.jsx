@@ -1,10 +1,10 @@
 import { useUser, SignOutButton, UserProfile } from "@clerk/nextjs"
 import { useState } from "react"
 import { User, Mail, Shield, Edit, LogOut, X } from "lucide-react"
+import { Link } from 'react-router-dom';
 
 export default function ProfilePage() {
   const { user, isLoaded } = useUser()
-  const [showEditProfile, setShowEditProfile] = useState(false)
 
   if (!isLoaded) {
     return (
@@ -98,14 +98,9 @@ export default function ProfilePage() {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={() => setShowEditProfile(true)}
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg border border-indigo-600 transition-colors"
-                >
-                  <Edit className="w-4 h-4" />
-                  Edit Profile
-                </button>
+                
 
+                {/* Sign Out Button */}
                 <SignOutButton>
                   <button className="flex items-center justify-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg border border-red-600 transition-colors">
                     <LogOut className="w-4 h-4" />
@@ -144,43 +139,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-
-      {/* Edit Profile Modal */}
-      {showEditProfile && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h3 className="text-xl font-semibold text-gray-900">Edit Profile</h3>
-              <button
-                onClick={() => setShowEditProfile(false)}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <X className="w-5 h-5 text-gray-500" />
-              </button>
-            </div>
-
-            {/* Clerk UserProfile Component */}
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-              <UserProfile
-                appearance={{
-                  elements: {
-                    rootBox: "w-full",
-                    card: "shadow-none border-0 bg-transparent",
-                    navbar: "hidden",
-                    pageScrollBox: "p-0",
-                    page: "bg-transparent shadow-none",
-                    profileSectionPrimaryButton: "bg-indigo-600 hover:bg-indigo-700",
-                    formButtonPrimary: "bg-indigo-600 hover:bg-indigo-700",
-                    headerTitle: "text-gray-900",
-                    headerSubtitle: "text-gray-600",
-                  },
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
